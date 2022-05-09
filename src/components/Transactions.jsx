@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 const Transactions = ({ transactions }) => {
   const values = transactions.map((transaction) => {
@@ -11,24 +12,68 @@ const Transactions = ({ transactions }) => {
 
   return (
     <>
-      <div>
+      <Container>
         {transactions.map(({ _id, time, description, type, value }) => {
           return (
-            <div key={_id}>
-              <span>{time}</span>
-              <span>{description}</span>
+            <Item key={_id} type={type}>
+              <span className="date">{time}</span>
+              <span className="description">{description}</span>
               <span className={type}>{value}</span>
-            </div>
+            </Item>
           );
         })}
-      </div>
+      </Container>
 
-      <div>
-        <p>SALDO</p>
-        <p>R$ {balance}</p>
-      </div>
+      <Balance balance={balance.toFixed(2)}>
+        <p className="title">SALDO</p>
+        <p className="balance">R$ {balance.toFixed(2)}</p>
+      </Balance>
     </>
   );
 };
 
 export default Transactions;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+`;
+
+const Item = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  .date {
+    color: #c6c6c6;
+  }
+  .description {
+    color: #111111;
+  }
+  .entrada {
+    color: green;
+  }
+  .saída {
+    color: red;
+  }
+`;
+
+const Balance = styled.div`
+  justify-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    font-weight: 500;
+  }
+  .title {
+    font-weight: 700;
+    color: #111111;
+  }
+  .balance {
+    color: ${(props) => (props.balance > 0 ? "green" : "red")};
+  }
+`;

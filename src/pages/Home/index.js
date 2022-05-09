@@ -107,6 +107,9 @@ const Content = styled.div`
   padding: 1rem;
   background-color: #ffffff;
   color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Footer = styled.div`
