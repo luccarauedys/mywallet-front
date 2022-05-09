@@ -1,6 +1,14 @@
 import React from "react";
 
 const Transactions = ({ transactions }) => {
+  const values = transactions.map((transaction) => {
+    return transaction.type === "entrada"
+      ? transaction.value
+      : `-${transaction.value}`;
+  });
+
+  const balance = values.reduce((acc, cur) => acc + parseFloat(cur), 0);
+
   return (
     <div>
       <div>
@@ -17,7 +25,7 @@ const Transactions = ({ transactions }) => {
 
       <div>
         <p>SALDO</p>
-        <p>R$ 0</p>
+        <p>R$ {balance}</p>
       </div>
     </div>
   );

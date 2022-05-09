@@ -12,6 +12,11 @@ export default function Home() {
 
   const [transactions, setTransactions] = React.useState([]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
+
   React.useEffect(() => {
     const config = {
       headers: {
@@ -29,7 +34,7 @@ export default function Home() {
     <div>
       <div>
         <h1>Olá, fulano!</h1>
-        <FiLogOut />
+        <FiLogOut onClick={handleLogout} />
       </div>
 
       {transactions.length === 0 ? (
