@@ -19,6 +19,7 @@ export default function SignIn({ setToken }) {
         console.log(res);
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", res.data.username);
       })
       .catch((err) => console.log(err));
   }

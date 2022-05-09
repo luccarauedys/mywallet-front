@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { FiLogOut, FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import Empty from "./../../components/Empty";
 import Transactions from "./../../components/Transactions";
+import styled from "styled-components";
 
 export default function Home() {
   const navigate = useNavigate();
+  const username = localStorage.getItem("username") || null;
   const token = localStorage.getItem("token") || null;
   if (!token) navigate("/signin");
 
@@ -31,26 +33,30 @@ export default function Home() {
   }, [token]);
 
   return (
-    <div>
-      <div>
-        <h1>Olá, fulano!</h1>
+    <Container>
+      <Header>
+        <h1>Olá, {username}!</h1>
         <FiLogOut onClick={handleLogout} />
-      </div>
+      </Header>
 
-      {transactions.length === 0 ? (
-        <Empty />
-      ) : (
-        <Transactions transactions={transactions} />
-      )}
+      <Content>
+        {transactions.length === 0 ? (
+          <Empty />
+        ) : (
+          <Transactions transactions={transactions} />
+        )}
+      </Content>
 
-      <div>
+      <Footer>
         <div
           onClick={() => {
             navigate("/newTransaction/entrada");
           }}
         >
           <FiPlusCircle />
-          <p>Nova entrada</p>
+          <p>
+            Nova <br /> entrada
+          </p>
         </div>
         <div
           onClick={() => {
@@ -58,9 +64,75 @@ export default function Home() {
           }}
         >
           <FiMinusCircle />
-          <p>Nova saída</p>
+          <p>
+            Nova <br /> saída
+          </p>
         </div>
-      </div>
-    </div>
+      </Footer>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 28px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+  }
+  svg {
+    font-size: 28px;
+  }
+`;
+
+const Content = styled.div`
+  min-height: 450px;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  color: #111111;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  div {
+    height: 100px;
+    background-color: #a328d6;
+    border-radius: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    p {
+      font-family: "Raleway", sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    svg {
+      font-size: 20px;
+    }
+  }
+`;

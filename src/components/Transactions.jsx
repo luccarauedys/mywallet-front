@@ -10,7 +10,7 @@ const Transactions = ({ transactions }) => {
   const balance = values.reduce((acc, cur) => acc + parseFloat(cur), 0);
 
   return (
-    <div>
+    <>
       <div>
         {transactions.map(({ _id, time, description, type, value }) => {
           return (
@@ -27,7 +27,7 @@ const Transactions = ({ transactions }) => {
         <p>SALDO</p>
         <p>R$ {balance}</p>
       </div>
-    </div>
+    </>
   );
 };
 
