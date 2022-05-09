@@ -7,14 +7,17 @@ import Home from "./pages/Home";
 import NewTransaction from "./pages/NewTransaction";
 
 const App = () => {
+  const [token, setToken] = React.useState(null);
+  console.log(token);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn setToken={setToken} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/transactions" element={<Home />} />
         <Route path="/newtransaction/:type" element={<NewTransaction />} />
-        <Route path="*" element={<SignIn />} />
+        <Route path="*" element={<SignIn setToken={setToken} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-export default function SignIn() {
+export default function SignIn({ setToken }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -11,6 +11,8 @@ export default function SignIn() {
       .post("http://172.17.0.1:5000/signin", { email, password })
       .then((res) => {
         console.log(res);
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
       })
       .catch((err) => console.log(err));
   }

@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmation, setConfirmation] = React.useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,6 +19,7 @@ export default function SignUp() {
       .post("http://172.17.0.1:5000/signup", { name, email, password })
       .then((res) => {
         console.log(res);
+        navigate("/signin");
       })
       .catch((err) => console.log(err));
   }
