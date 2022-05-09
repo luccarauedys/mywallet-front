@@ -1,12 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { FiLogOut, FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { FiLogOut, FiPlusCircle, FiMinusCircle } from "react-icons/fi";
+import Empty from "./../../components/Empty";
+import Transactions from "./../../components/Transactions";
 
 export default function Home() {
-  const [transactions, setTransactions] = React.useState([]);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") || null;
   const navigate = useNavigate();
+  if (!token) navigate("/signin");
+
+  const [transactions, setTransactions] = React.useState([]);
 
   React.useEffect(() => {
     const config = {
@@ -21,10 +25,6 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, [token]);
 
-  console.log(transactions);
-
-  if (!token) return navigate("/signin");
-
   return (
     <div>
       <div>
@@ -33,25 +33,15 @@ export default function Home() {
       </div>
 
       {transactions.length === 0 ? (
-        <div>
-          <p>Não há registros de entrada ou saída.</p>
-        </div>
+        <Empty />
       ) : (
-        transactions.map((transaction) => {
-          return (
-            <div key={transaction._id}>
-              <span>{transaction.time}</span>
-              <span>{transaction.description}</span>
-              <span className={transaction.type}>{transaction.value}</span>
-            </div>
-          );
-        })
+        <Transactions transactions={transactions} />
       )}
 
       <div>
         <div
           onClick={() => {
-            navigate("/newTransaction");
+            navigate("/newTransaction/entrada");
           }}
         >
           <FiPlusCircle />
@@ -59,7 +49,7 @@ export default function Home() {
         </div>
         <div
           onClick={() => {
-            navigate("/newTransaction");
+            navigate("/newTransaction/saída");
           }}
         >
           <FiMinusCircle />
