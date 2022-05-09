@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import NewTransaction from "./pages/NewTransaction";
+import "./App.css";
 
 const App = () => {
   const [token, setToken] = React.useState(null);

@@ -6,8 +6,8 @@ import Empty from "./../../components/Empty";
 import Transactions from "./../../components/Transactions";
 
 export default function Home() {
-  const token = localStorage.getItem("token") || null;
   const navigate = useNavigate();
+  const token = localStorage.getItem("token") || null;
   if (!token) navigate("/signin");
 
   const [transactions, setTransactions] = React.useState([]);
