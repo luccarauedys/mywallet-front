@@ -14,7 +14,7 @@ export default function SignUp() {
       return;
     }
     axios
-      .post("localhost:5000/signup", { name, email, password })
+      .post("http://172.17.0.1:5000/signup", { name, email, password })
       .then((res) => {
         console.log(res);
       })
