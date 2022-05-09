@@ -18,7 +18,7 @@ const Transactions = ({ transactions }) => {
             <Item key={_id} type={type}>
               <span className="date">{time}</span>
               <span className="description">{description}</span>
-              <span className={type}>{value}</span>
+              <span className={type}>R$ {value}</span>
             </Item>
           );
         })}
