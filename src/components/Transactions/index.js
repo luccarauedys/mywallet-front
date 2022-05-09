@@ -16,9 +16,13 @@ const Transactions = ({ transactions }) => {
         {transactions.map(({ _id, time, description, type, value }) => {
           return (
             <Item key={_id} type={type}>
-              <span className="date">{time}</span>
-              <span className="description">{description}</span>
-              <span className={type}>R$ {value}</span>
+              <div className="leftside">
+                <span className="date">{time}</span>
+                <span className="description">{description}</span>
+              </div>
+              <div className="rightside">
+                <span className={type}>R$ {value}</span>
+              </div>
             </Item>
           );
         })}
@@ -45,6 +49,18 @@ const Container = styled.div`
 const Item = styled.div`
   display: flex;
   gap: 0.5rem;
+
+  div {
+    line-height: 1.2;
+    display: flex;
+    gap: 0.8rem;
+  }
+  .leftside {
+    flex: 3;
+  }
+  .rightside {
+    flex: 1;
+  }
 
   .date {
     color: #c6c6c6;

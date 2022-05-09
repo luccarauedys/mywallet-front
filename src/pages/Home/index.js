@@ -16,6 +16,7 @@ export default function Home() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     navigate("/signin");
   };
 
@@ -50,7 +51,7 @@ export default function Home() {
       <Footer>
         <div
           onClick={() => {
-            navigate("/newTransaction/entrada");
+            navigate("/newtransaction/entrada");
           }}
         >
           <FiPlusCircle />
@@ -60,7 +61,7 @@ export default function Home() {
         </div>
         <div
           onClick={() => {
-            navigate("/newTransaction/saída");
+            navigate("/newtransaction/saída");
           }}
         >
           <FiMinusCircle />

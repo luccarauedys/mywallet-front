@@ -3,13 +3,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-export default function SignIn({ setToken }) {
-  const token = localStorage.getItem("token") || null;
+export default function SignIn() {
   const navigate = useNavigate();
-  if (token) navigate("/transactions");
-
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [token, setToken] = React.useState("");
+
+  React.useEffect(() => {
+    const tokenLS = localStorage.getItem("token");
+    if (tokenLS) {
+      setToken(tokenLS);
+    }
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -24,7 +29,9 @@ export default function SignIn({ setToken }) {
       .catch((err) => console.log(err));
   }
 
-  return (
+  return token ? (
+    navigate("/transactions")
+  ) : (
     <Container>
       <Title>MyWallet</Title>
 
